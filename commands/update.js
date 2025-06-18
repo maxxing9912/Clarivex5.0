@@ -39,10 +39,18 @@ module.exports = {
             return; // Cannot proceed
         }
 
+        // 1.a) Ensure command is run in a guild
+        if (!interaction.guildId) {
+            return interaction.editReply({
+                content: "❌ The `/update` command can only be used in a server (not in DMs).",
+                ephemeral: true
+            });
+        }
+
         // From here on, always use editReply or followUp
         try {
             // 2) Load config
-            const cfg = await setupManager.getConfig(interaction.guild.id);
+            const cfg = await setupManager.getConfig(interaction.guildId);
             if (!cfg || !cfg.groupId) {
                 return interaction.editReply("❌ This server is not configured. Run `/setup` first.");
             }
