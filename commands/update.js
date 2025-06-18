@@ -1,4 +1,4 @@
-﻿// commands/update.js
+// commands/update.js
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const noblox = require("noblox.js");
 const setupManager = require("../utils/setupManager");
