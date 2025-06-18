@@ -1,16 +1,14 @@
-﻿// commands/setup.js
+// commands/setup.js
 
 const {
     SlashCommandBuilder,
     EmbedBuilder,
-    ChannelType,
     ButtonBuilder,
     ButtonStyle,
     ActionRowBuilder,
     MessageFlags
 } = require('discord.js');
 const setupManager = require('../utils/setupManager');
-const permManager = require('../utils/permManager');
 const xpDb = require('../xpManager');
 const noblox = require('noblox.js');
 
@@ -179,6 +177,15 @@ module.exports = {
             premiumKey,
             ownerDiscordId: invokingUserId,
             invokingChannelId: channelId
+        });
+
+        // 9.a) ALSO write the final config immediately so /update funzioni subito
+        await setupManager.setConfig(guildId, {
+            groupId,
+            roleBindings: [],         // imposta binding di default o personalizzati
+            verificationRoleId: null,
+            unverifiedRoleId: null,
+            bypassRoleId: null
         });
 
         // 10) Notify the user that setup is pending
